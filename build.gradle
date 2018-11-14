@@ -1,71 +1,71 @@
-//uildscript {
+////uildscript {
+////    ext {
+////        springBootVersion = '2.1.0.RELEASE'
+////    }
+////    repositories {
+////        mavenCentral()
+////    }
+////    dependencies {
+////        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+////    }
+////}
+////
+////apply plugin: 'java'
+////apply plugin: 'eclipse'
+////apply plugin: 'org.springframework.boot'
+////apply plugin: 'io.spring.dependency-management'
+////
+////group = 'com'
+////version = '0.0.1-SNAPSHOT'
+////sourceCompatibility = 1.8
+//
+//buildscript {
 //    ext {
-//        springBootVersion = '2.1.0.RELEASE'
+//        depManagementVersion = '1.0.5.RELEASE'
 //    }
 //    repositories {
 //        mavenCentral()
+//        jcenter()
 //    }
 //    dependencies {
-//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//        classpath("io.spring.gradle:dependency-management-plugin:${depManagementVersion}")
 //    }
 //}
 //
-//apply plugin: 'java'
-//apply plugin: 'eclipse'
-//apply plugin: 'org.springframework.boot'
-//apply plugin: 'io.spring.dependency-management'
-//
-//group = 'com'
-//version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = 1.8
-
-buildscript {
-    ext {
-        depManagementVersion = '1.0.5.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath("io.spring.gradle:dependency-management-plugin:${depManagementVersion}")
-    }
-}
-
-allprojects {
-    group 'com'
-    version '1.0-SNAPSHOT'
-}
-subprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    apply plugin: 'java'
-    apply plugin: 'idea'
-    apply plugin: 'io.spring.dependency-management'
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
-//    ext {
-//        SLF4J_VERSION = '1.7.10'
-//        JUNIT_VERSION = '4.11'
+//allprojects {
+//    group 'com'
+//    version '1.0-SNAPSHOT'
+//}
+//subprojects {
+//    repositories {
+//        mavenCentral()
+//        jcenter()
 //    }
-
-    dependencyManagement {
-        imports {
-            mavenBom 'io.spring.platform:platform-bom:1.1.2.RELEASE'
-        }
-    }
-
-//    dependencies {
-//        compile "org.slf4j:slf4j-api:${SLF4J_VERSION}"
-//        compile "org.slf4j:slf4j-log4j12:${SLF4J_VERSION}"
 //
-//        testCompile "junit:junit:${JUNIT_VERSION}"
+//    apply plugin: 'java'
+//    apply plugin: 'idea'
+//    apply plugin: 'io.spring.dependency-management'
+//
+//    sourceCompatibility = 1.8
+//    targetCompatibility = 1.8
+//
+////    ext {
+////        SLF4J_VERSION = '1.7.10'
+////        JUNIT_VERSION = '4.11'
+////    }
+//
+//    dependencyManagement {
+//        imports {
+//            mavenBom 'io.spring.platform:platform-bom:1.1.2.RELEASE'
+//        }
 //    }
-}
-
-
+//
+////    dependencies {
+////        compile "org.slf4j:slf4j-api:${SLF4J_VERSION}"
+////        compile "org.slf4j:slf4j-log4j12:${SLF4J_VERSION}"
+////
+////        testCompile "junit:junit:${JUNIT_VERSION}"
+////    }
+//}
+//
+//
