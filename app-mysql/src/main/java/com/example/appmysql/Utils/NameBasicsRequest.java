@@ -1,48 +1,19 @@
-package com.example.appmysql.entry;
+package com.example.appmysql.Utils;
 
-
-import com.example.appmysql.Utils.NameBasicsRequest;
-
-import javax.persistence.*;
-
-@Entity
-@Table(name = "name_basics")
-public class NameBasics {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "nconst")
-    private String tconst;
-
-    @Column(name = "primaryName")
+public class NameBasicsRequest {
+    private String nconst;
     private String primaryName;
-
-    @Column(name = "birthYear")
     private Long birthYear;
-
-    @Column(name = "deathYear")
     private Long deathYear;
-
-    @Column(name = "primaryProfession")
     private String primaryProfession;
-
-    @Column(name = "knownForTitles")
     private String knownForTitles;
 
-    public NameBasics(NameBasicsRequest nameBasicsRequest) {
-        this.primaryName = nameBasicsRequest.getPrimaryName();
-        this.birthYear = nameBasicsRequest.getBirthYear();
-        this.deathYear = nameBasicsRequest.getDeathYear();
-        this.primaryProfession = nameBasicsRequest.getPrimaryProfession();
-        this.knownForTitles = nameBasicsRequest.getKnownForTitles();
+    public String getNconst() {
+        return nconst;
     }
 
-    public String getNconts() {
-        return tconst;
-    }
-
-    public void setNconts(String nconts) {
-        this.tconst = nconts;
+    public void setNconst(String nconst) {
+        this.nconst = nconst;
     }
 
     public String getPrimaryName() {
@@ -84,6 +55,4 @@ public class NameBasics {
     public void setKnownForTitles(String knownForTitles) {
         this.knownForTitles = knownForTitles;
     }
-
-
 }

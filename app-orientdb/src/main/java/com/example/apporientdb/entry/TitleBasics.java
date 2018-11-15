@@ -1,4 +1,4 @@
-package com.example.appmysql.entry;
+package com.example.apporientdb.entry;
 
 import javax.persistence.*;
 
