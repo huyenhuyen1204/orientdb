@@ -1,7 +1,6 @@
-package com.example.apporientdb.repository;
+package com.example.apporientdb.interfaces.repositorys;
 
 
-import com.example.apporientdb.entry.NameBasics;
 import com.example.apporientdb.entry.TitlePrincipals;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.orient.commons.repository.OrientRepository;

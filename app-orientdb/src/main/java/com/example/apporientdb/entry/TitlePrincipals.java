@@ -29,7 +29,6 @@ public class TitlePrincipals {
         this.tconst = titlePrincipalsRequest.getTconst();
         this.category = titlePrincipalsRequest.getCategory();
         this.nconst = titlePrincipalsRequest.getNconst();
-        this.job = titlePrincipalsRequest.getJob();
         this.ordering = titlePrincipalsRequest.getOrdering();
     }
 

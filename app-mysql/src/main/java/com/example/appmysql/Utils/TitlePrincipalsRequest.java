@@ -1,4 +1,4 @@
-package com.example.apporientdb.Utils;
+package com.example.appmysql.Utils;
 
 public class TitlePrincipalsRequest  extends Object{
     private String tconst;

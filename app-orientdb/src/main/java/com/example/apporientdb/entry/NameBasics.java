@@ -2,6 +2,8 @@ package com.example.apporientdb.entry;
 
 
 
+import com.example.apporientdb.Utils.NameBasicsRequest;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,9 +11,8 @@ import javax.persistence.*;
 public class NameBasics {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "nconst")
-    private String tconst;
+    private String nconst;
 
     @Column(name = "primaryName")
     private String primaryName;
@@ -27,21 +28,23 @@ public class NameBasics {
 
     @Column(name = "knownForTitles")
     private String knownForTitles;
-
-    public NameBasics(NameBasicsRequest nameBasicsRequest) {
-        this.primaryName = nameBasicsRequest.getPrimaryName();
-        this.birthYear = nameBasicsRequest.getBirthYear();
-        this.deathYear = nameBasicsRequest.getDeathYear();
-        this.primaryProfession = nameBasicsRequest.getPrimaryProfession();
-        this.knownForTitles = nameBasicsRequest.getKnownForTitles();
+    //TODO: note : insert 1 phần
+    public NameBasics(NameBasicsRequest nameBasicsRequest){
+        setNconts(nameBasicsRequest.getNconst());
+        setBirthYear(nameBasicsRequest.getBirthYear());
+        setDeathYear(null);
+        setKnownForTitles(null);
+        setPrimaryName(nameBasicsRequest.getPrimaryName());
+        setPrimaryProfession(null);
     }
 
+
     public String getNconts() {
-        return tconst;
+        return nconst;
     }
 
     public void setNconts(String nconts) {
-        this.tconst = nconts;
+        this.nconst = nconts;
     }
 
     public String getPrimaryName() {

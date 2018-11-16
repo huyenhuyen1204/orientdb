@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table
 public class TitleEpisode {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "tconst")
     private String tconst;
 

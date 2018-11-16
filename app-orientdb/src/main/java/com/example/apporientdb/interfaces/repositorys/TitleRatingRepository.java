@@ -1,4 +1,4 @@
-package com.example.apporientdb.repository;
+package com.example.apporientdb.interfaces.repositorys;
 
 
 

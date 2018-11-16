@@ -13,4 +13,28 @@ public class OutputRow<T extends Object> {
 
     public OutputRow() {
     }
+
+    public double getTime() {
+        return time;
+    }
+
+    public void setTime(double time) {
+        this.time = time;
+    }
+
+    public int getRecords() {
+        return records;
+    }
+
+    public void setRecords(int records) {
+        this.records = records;
+    }
+
+    public T getRow() {
+        return row;
+    }
+
+    public void setRow(T row) {
+        this.row = row;
+    }
 }

@@ -1,10 +1,9 @@
-package com.example.apporientdb.repository;
+package com.example.apporientdb.interfaces.repositorys;
 
 import com.example.apporientdb.entry.NameBasics;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.orient.commons.repository.OrientRepository;
 import org.springframework.data.orient.commons.repository.annotation.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,8 +11,8 @@ import java.util.List;
 @Repository
 public interface NameBasicsRepository extends OrientRepository<NameBasics> {
 //    @Query(value = "SElECT * FROM name_basics", nativeQuery = true)
-    @Query("select nb from name_basics nb")
-    List<NameBasics> getAll();
+    @Query("select nb from name_basics nb Where nb.startYear = ?")
+    List<NameBasics> getAllByStartYear(Long sYear);
 
 //    @Query(value = "SELECT * FROM name_basics Where name_basics.nconst = :nc", nativeQuery = true)
     @Query("select nb from name_basics nb Where nb.nconst = ? ")

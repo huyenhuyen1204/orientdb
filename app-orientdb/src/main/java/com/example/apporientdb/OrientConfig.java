@@ -1,9 +1,6 @@
 package com.example.apporientdb;
 
-import com.example.apporientdb.entry.NameBasics;
-import com.example.apporientdb.entry.TitleAkas;
-import com.example.apporientdb.entry.TitlePrincipals;
-import com.example.apporientdb.entry.TitleRating;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.orient.commons.core.OrientTransactionManager;
@@ -22,9 +19,9 @@ public class OrientConfig {
     public OrientObjectDatabaseFactory factory() {
         OrientObjectDatabaseFactory factory =  new OrientObjectDatabaseFactory();
 
-        factory.setUrl("remote:127.0.0.1/GratefulDeadConcerts");
+        factory.setUrl("mysql:68.183.136.138:3306/orientdb");
         factory.setUsername("huyen");
-        factory.setPassword("huyen");
+        factory.setPassword("123456");
 
         return factory;
     }
