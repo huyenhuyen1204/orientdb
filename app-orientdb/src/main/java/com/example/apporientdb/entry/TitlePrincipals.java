@@ -1,12 +1,13 @@
 package com.example.apporientdb.entry;
 
+import com.example.apporientdb.Utils.TitlePrincipalsRequest;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "title_principals")
 public class TitlePrincipals {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "tconst")
     private String tconst;
 
@@ -24,6 +25,16 @@ public class TitlePrincipals {
 
     @Column(name = "characters")
     private String characters;
+    public TitlePrincipals(TitlePrincipalsRequest titlePrincipalsRequest){
+        this.tconst = titlePrincipalsRequest.getTconst();
+        this.category = titlePrincipalsRequest.getCategory();
+        this.nconst = titlePrincipalsRequest.getNconst();
+        this.job = titlePrincipalsRequest.getJob();
+        this.ordering = titlePrincipalsRequest.getOrdering();
+    }
+
+
+
 
     public String getTconst() {
         return tconst;

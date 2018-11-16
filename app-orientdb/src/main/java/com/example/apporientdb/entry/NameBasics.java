@@ -1,6 +1,7 @@
 package com.example.apporientdb.entry;
 
 
+
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +27,14 @@ public class NameBasics {
 
     @Column(name = "knownForTitles")
     private String knownForTitles;
+
+    public NameBasics(NameBasicsRequest nameBasicsRequest) {
+        this.primaryName = nameBasicsRequest.getPrimaryName();
+        this.birthYear = nameBasicsRequest.getBirthYear();
+        this.deathYear = nameBasicsRequest.getDeathYear();
+        this.primaryProfession = nameBasicsRequest.getPrimaryProfession();
+        this.knownForTitles = nameBasicsRequest.getKnownForTitles();
+    }
 
     public String getNconts() {
         return tconst;

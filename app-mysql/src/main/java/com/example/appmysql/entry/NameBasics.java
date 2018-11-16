@@ -1,8 +1,6 @@
 package com.example.appmysql.entry;
 
 
-import com.example.appmysql.Utils.NameBasicsRequest;
-
 import javax.persistence.*;
 
 @Entity

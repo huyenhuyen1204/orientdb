@@ -15,4 +15,5 @@ public interface NameBasicsRepository extends OrientRepository<NameBasics> {
 
     @Query(value = "SELECT * FROM name_basics Where name_basics.nconst = :nc", nativeQuery = true)
     NameBasics getById(@Param("nc") String ncost);
+
 }
