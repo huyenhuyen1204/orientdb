@@ -28,6 +28,6 @@ public class DemoJoinService {
 //            OutputDemoJoin  o = new OutputDemoJoin((String)obj[0],(String) obj[1],(String) obj[2]);
 //            output.add(o);
 //        }
-//        return new OutputList((end-start)/1000000, 1,output.subList(0,30) );
+//        return new OutputList((end-start)/1000000000, 1,output.subList(0,30) );
 //    }
 }

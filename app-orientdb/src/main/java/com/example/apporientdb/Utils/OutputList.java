@@ -20,7 +20,7 @@ public class OutputList {
         return time;
     }
 
-    public void setTime(Long time) {
+    public void setTime(double time) {
         this.time = time;
     }
 

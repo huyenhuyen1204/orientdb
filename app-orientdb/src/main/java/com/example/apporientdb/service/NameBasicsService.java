@@ -36,10 +36,10 @@ public class NameBasicsService implements NameBasicsBase {
             o.setList(list.subList(0, 30));
         }
         o.setRecords(list.size());
-        o.setTime((end-start)/1000000000);
+        o.setTime((double)(end-start)/1000000000);
 
         logger.info("Records: " + list.size());
-        logger.info("Time: " + (end-start)/1000000 + "ms");
+        logger.info("Time: " + (end-start)/1000000000 + "ms");
 
         return o;    }
 
@@ -49,7 +49,7 @@ public class NameBasicsService implements NameBasicsBase {
         long start = System.nanoTime();
         nameBasicsRepository.save(nameBasics);
         long end = System.nanoTime();
-        double a = (end-start)/1000000;
+        double a = (end-start)/1000000000;
         logger.info("Time insert: "+ a);
 
         return new OutputRow( a,  1, nameBasics) ;
@@ -64,7 +64,7 @@ public class NameBasicsService implements NameBasicsBase {
         long start = System.nanoTime();
         nameBasicsRepository.deleteById(id);
         long end = System.nanoTime();
-        double a = (end - start)/1000000;
+        double a = (end - start)/1000000000;
         return Double.toString(a);
     }
 
@@ -75,6 +75,6 @@ public class NameBasicsService implements NameBasicsBase {
         long start = System.nanoTime();
         nameBasicsRepository.update(id, newName);
         long end = System.nanoTime();
-        return new OutputRow((end-start)/1000000, 1, nameBasics);
+        return new OutputRow((end-start)/1000000000, 1, nameBasics);
     }
 }
