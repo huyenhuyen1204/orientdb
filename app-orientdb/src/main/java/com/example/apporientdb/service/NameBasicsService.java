@@ -16,19 +16,19 @@ import java.util.List;
 @Service
 public class NameBasicsService implements NameBasicsBase {
 
-    public static final Logger logger = LoggerFactory.getLogger(TitlePrincipalsService.class);
+    public static final Logger logger = LoggerFactory.getLogger(NameBasicsBase.class);
 
     @Autowired
     private NameBasicsRepository nameBasicsRepository;
 
     @Override
     public NameBasics getElement(String id) {
-        return nameBasicsRepository.getById(id);    }
+        return nameBasicsRepository.findByNconst(id);    }
 
     @Override
     public OutputList getAllByStartYear(Long sYear) {
         Long start = System.nanoTime();
-        List<NameBasics> list = nameBasicsRepository.getAllByStartYear(sYear);
+        List<NameBasics> list = nameBasicsRepository.findByBirthYear(sYear);
         Long end = System.nanoTime();
 
         OutputList o = new OutputList();
@@ -57,7 +57,7 @@ public class NameBasicsService implements NameBasicsBase {
 
     @Override
     public String delete(String id) {
-        NameBasics nameBasics = nameBasicsRepository.getById(id);
+        NameBasics nameBasics = nameBasicsRepository.findByNconst(id);
         if(nameBasics == null){
             return "Not Found with ID: " + id;
         }
@@ -70,7 +70,7 @@ public class NameBasicsService implements NameBasicsBase {
 
     @Override
     public OutputRow update(String id, String newName) {
-        NameBasics nameBasics = nameBasicsRepository.getById(id);
+        NameBasics nameBasics = nameBasicsRepository.findByNconst(id);
         nameBasics.setPrimaryName(newName);
         long start = System.nanoTime();
         nameBasicsRepository.update(id, newName);

@@ -1,9 +1,12 @@
 package com.example.apporientdb.entry;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
-@Entity
-@Table(name = "title_akas")
+//@Entity
+//@Table(name = "title_akas")
+@JsonIgnoreProperties(value = {"handler"})
 public class TitleAkas {
     @Id
     @Column(name = "titleId")

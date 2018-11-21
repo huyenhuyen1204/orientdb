@@ -1,11 +1,11 @@
 package com.example.apporientdb.entry;
 
 import com.example.apporientdb.Utils.TitlePrincipalsRequest;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "title_principals")
+@JsonIgnoreProperties(value = {"handler"})
 public class TitlePrincipals {
     @Id
     @Column(name = "tconst")

@@ -3,16 +3,25 @@ package com.example.apporientdb.entry;
 
 
 import com.example.apporientdb.Utils.NameBasicsRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-
-@Entity
-@Table(name = "name_basics")
+//@Entity
+//@Table(name = "NameBasics")
+@JsonIgnoreProperties(value = {"handler"})
 public class NameBasics {
+//    private static final long serialVersionUID = 8829149802207954818L;
+
+//    private static final long serialVersionUID = 8829149802207954818L;
 
     @Id
     @Column(name = "nconst")
     private String nconst;
+
+//    @Version
+//    @JsonIgnore
+//    private Long version;
 
     @Column(name = "primaryName")
     private String primaryName;
