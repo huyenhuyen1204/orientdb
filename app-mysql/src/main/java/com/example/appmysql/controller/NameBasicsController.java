@@ -53,8 +53,4 @@ public class NameBasicsController {
         return (double) (end-start)/1000000000;
     }
 
-    //khong demo vi time qua lau
-    //
-    // @GetMapping("/mysql/join")
-    // Double join()
 }
