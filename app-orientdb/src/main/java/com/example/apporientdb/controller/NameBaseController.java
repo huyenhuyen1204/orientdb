@@ -41,10 +41,17 @@ public class NameBaseController {
         Statement stmt = connection.createStatement();
         Long start = System.nanoTime();
         logger.info("Start: "+ start);
-        ResultSet rs = stmt.executeQuery("SELECT * FROM NameBasics WHERE birthYear =" + bYear + " LIMIT 10");
-        logger.info("exe...");
-        rs.next();
-        logger.info("rs.next(): "+ rs.next());
+        ResultSet rs = stmt.executeQuery("SELECT nconst FROM NameBasics WHERE birthYear =" + bYear + " LIMIT 20");
+//        logger.info("exe...");
+        logger.info("info: ..."+rs.findColumn("nconst"));
+        rs.findColumn("nconst");
+//        logger.info("info: ..."+rs.getInt("@class"));
+//        logger.info("info: ..."+rs.getInt("@rid"));
+//        rs.next();
+//        while(rs.next()){
+//
+//        }
+//        logger.info("rs.next(): "+ rs.next());
         Long end = System.nanoTime();
         logger.info("end :" + end);
         logger.info("rs: "+ rs.getArray("nconst") );
