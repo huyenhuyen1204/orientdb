@@ -2,21 +2,21 @@ package com.example.apporientdb.controller;
 
 import com.example.apporientdb.Utils.NameBasicsRequest;
 import com.example.apporientdb.Utils.OutputList;
+import com.example.apporientdb.Utils.OutputRow;
+import com.example.apporientdb.entry.NameBasics;
 import com.orientechnologies.orient.jdbc.OrientJdbcConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-@Controller
+@RestController
 @RequestMapping("/orientdb")
 public class NameBaseController {
 
@@ -37,29 +37,62 @@ public class NameBaseController {
     }
 
     @GetMapping("/select")
-    public String getNameBasics(@RequestParam Long bYear) throws SQLException {
+    OutputList getNameBasics(@RequestParam Long bYear, @RequestParam int limit) throws SQLException {
         Statement stmt = connection.createStatement();
         Long start = System.nanoTime();
         logger.info("Start: "+ start);
-        ResultSet rs = stmt.executeQuery("SELECT nconst FROM NameBasics WHERE birthYear =" + bYear + " LIMIT 20");
-//        logger.info("exe...");
-        logger.info("info: ..."+rs.findColumn("nconst"));
-        rs.findColumn("nconst");
-//        logger.info("info: ..."+rs.getInt("@class"));
-//        logger.info("info: ..."+rs.getInt("@rid"));
-//        rs.next();
-//        while(rs.next()){
-//
-//        }
-//        logger.info("rs.next(): "+ rs.next());
+        ResultSet rs = stmt.executeQuery("SELECT * FROM NameBasics WHERE birthYear =" + bYear + " LIMIT " + limit);
         Long end = System.nanoTime();
         logger.info("end :" + end);
         logger.info("rs: "+ rs.getArray("nconst") );
-        List<NameBasicsRequest> list =  new ArrayList<> ();
-
-
+        List<NameBasics> list =  new ArrayList<> ();
+        while (rs.next()) {
+            NameBasics nameBasics = new NameBasics(rs.getString("nconst"), rs.getString("primaryName"),
+                    rs.getLong("birthYear"),
+                    rs.getString("primaryProfession"), rs.getString("knownForTitles"));
+            list.add(nameBasics);
+        }
         rs.close();
         stmt.close();
-        return "OK:";
+        for(NameBasics a : list){
+            System.out.println(a.getNconts());
+        }
+        return new OutputList((double)(end - start)/1000000000, limit, list);
     }
+
+    @PostMapping("/insert")
+    OutputRow createElement(@RequestBody NameBasicsRequest titlePrincipalsRequest) throws SQLException {
+        Statement stmt = connection.createStatement();
+        Long start = System.nanoTime();
+        ResultSet rs = stmt.executeQuery("INSERT INTO NameBasics (nconst, primaryName, birthYear)  " +
+                "VALUES ("
+                + "'" + titlePrincipalsRequest.getNconst() + "'"+ ","
+                +"'" + titlePrincipalsRequest.getPrimaryName() + "'"+  ","
+                +"'"+ titlePrincipalsRequest.getBirthYear() + "'"+ ")");
+        long end = System.nanoTime();
+        NameBasics nameBasics = null;
+        while(rs.next()) {
+             nameBasics = new NameBasics(rs.getString("nconst"), rs.getString("primaryName"), rs.getLong("birthYear"), null, null);
+        }
+
+        return new OutputRow((double)(end - start)/1000000000, 1, nameBasics);
+    }
+
+    @DeleteMapping("/delete")
+    OutputRow delete(@RequestParam String nconst) throws SQLException {
+        Statement stmt = connection.createStatement();
+        long start = System.nanoTime();
+        ResultSet rs = stmt.executeQuery("DELETE FROM name_basics WHERE nconst = " + "'" + nconst +  "'");
+        long end = System.nanoTime();
+        return new OutputRow( (double) (end-start)/1000000000, 1, null);
+    }
+//
+//    @PutMapping("/update")
+//    Double update(@RequestBody InputUpdate inputUpdate){
+//        long start = System.nanoTime();
+//        String sql = "UPDATE name_basics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;
+//        jdbc.update(sql);
+//        long end = System.nanoTime();
+//        return (double) (end-start)/1000000000;
+//    }
 }

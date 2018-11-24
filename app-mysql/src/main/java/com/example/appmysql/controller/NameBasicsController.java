@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/mysql")
 public class NameBasicsController {
     @Autowired
     JdbcTemplate jdbc;
 
-    @GetMapping("/mysql/select")
-    Double getAllByStartYear(@RequestParam Long sYear){
-        String sql = "SELECT * FROM name_basics WHERE birthYear = " + sYear;
+    @GetMapping("/select")
+    Double getAllByStartYear(@RequestParam Long sYear, @RequestParam int limit){
+        String sql = "SELECT * FROM name_basics WHERE birthYear = " + sYear + " LIMIT " + limit;
         long start = System.nanoTime();
         jdbc.execute(sql);
         long end = System.nanoTime();
         return (double) (end-start)/1000000000;
     }
 
-    @PostMapping("/mysql/insert")
+    @PostMapping("/insert")
     Double createElement(@RequestBody NameBasicsRequest titlePrincipalsRequest){
         long start = System.nanoTime();
         jdbc.update("INSERT INTO name_basics(nconst, primaryName, birthYear)  VALUES (?, ?, ?)",
@@ -35,7 +35,7 @@ public class NameBasicsController {
 
     }
 
-    @DeleteMapping("/mysql/delete")
+    @DeleteMapping("/delete")
     Double delete(@RequestParam String nconst){
         long start = System.nanoTime();
         String sql = "DELETE FROM name_basics WHERE nconst = " + "'" + nconst +  "'";
@@ -44,7 +44,7 @@ public class NameBasicsController {
         return (double) (end-start)/1000000000;
     }
 
-    @PutMapping("/mysql/update")
+    @PutMapping("/update")
     Double update(@RequestBody InputUpdate inputUpdate){
         long start = System.nanoTime();
         String sql = "UPDATE name_basics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;

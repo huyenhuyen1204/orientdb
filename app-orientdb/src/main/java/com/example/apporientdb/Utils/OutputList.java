@@ -2,7 +2,7 @@ package com.example.apporientdb.Utils;
 
 import java.util.List;
 
-public class OutputList {
+public class OutputList extends Base {
     private double time;
     private int records;
     private List<? extends Object> list;
@@ -10,7 +10,7 @@ public class OutputList {
     public OutputList() {
     }
 
-    public OutputList(Long time, int records, List<? extends Object> list) {
+    public OutputList(double time, int records, List<? extends Object> list) {
         this.time = time;
         this.records = records;
         this.list = list;
