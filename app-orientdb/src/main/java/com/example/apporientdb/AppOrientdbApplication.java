@@ -33,7 +33,7 @@ public class AppOrientdbApplication {
         info.put("db.pool.max", "30");  // MAXIMUM POOL SIZE
         info.put("spark", "true"); // ENABLE Spark compatibility
 
-        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:178.128.58.224/orientdb", info);
+        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:178.128.58.224:2424/orientdb", info);
         return conn;
     }
 

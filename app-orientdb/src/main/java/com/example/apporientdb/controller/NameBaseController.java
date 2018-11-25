@@ -39,12 +39,10 @@ public class NameBaseController {
     @GetMapping("/select")
     OutputList getNameBasics(@RequestParam Long bYear, @RequestParam int limit) throws SQLException {
         Statement stmt = connection.createStatement();
+
         Long start = System.nanoTime();
-        logger.info("Start: "+ start);
         ResultSet rs = stmt.executeQuery("SELECT * FROM NameBasics WHERE birthYear =" + bYear + " LIMIT " + limit);
         Long end = System.nanoTime();
-        logger.info("end :" + end);
-        logger.info("rs: "+ rs.getArray("nconst") );
         List<NameBasics> list =  new ArrayList<> ();
         while (rs.next()) {
             NameBasics nameBasics = new NameBasics(rs.getString("nconst"), rs.getString("primaryName"),
@@ -82,17 +80,9 @@ public class NameBaseController {
     OutputRow delete(@RequestParam String nconst) throws SQLException {
         Statement stmt = connection.createStatement();
         long start = System.nanoTime();
-        ResultSet rs = stmt.executeQuery("DELETE FROM name_basics WHERE nconst = " + "'" + nconst +  "'");
+        ResultSet rs = stmt.executeQuery("DELETE FROM NameBasics WHERE nconst = " + "'" + nconst +  "'");
         long end = System.nanoTime();
         return new OutputRow( (double) (end-start)/1000000000, 1, null);
     }
-//
-//    @PutMapping("/update")
-//    Double update(@RequestBody InputUpdate inputUpdate){
-//        long start = System.nanoTime();
-//        String sql = "UPDATE name_basics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;
-//        jdbc.update(sql);
-//        long end = System.nanoTime();
-//        return (double) (end-start)/1000000000;
-//    }
+
 }
