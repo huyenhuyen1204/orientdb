@@ -25,12 +25,18 @@ public class AppOrientdbApplication {
         SpringApplication.run(AppOrientdbApplication.class, args);
     }
 
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
+                registry.addMapping("/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("header1", "header2", "header3")
+                        .exposedHeaders("header1", "header2")
+                        .allowCredentials(false).maxAge(3600);
             }
         };
     }
@@ -46,7 +52,9 @@ public class AppOrientdbApplication {
         info.put("db.pool.max", "30");  // MAXIMUM POOL SIZE
         info.put("spark", "true"); // ENABLE Spark compatibility
 
-        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:localhost:2424/orientdb", info);
+//        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:localhost:2424/orientdb", info);
+        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:128.199.205.8/orientdb", info);
+
         return conn;
     }
 
