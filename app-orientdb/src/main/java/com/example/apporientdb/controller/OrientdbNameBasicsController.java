@@ -3,38 +3,36 @@ package com.example.apporientdb.controller;
 import com.example.apporientdb.Utils.NameBasicsRequest;
 import com.example.apporientdb.Utils.OutputList;
 import com.example.apporientdb.Utils.OutputRow;
+import com.example.apporientdb.Utils.ResultJoin;
 import com.example.apporientdb.entry.NameBasics;
-import com.orientechnologies.orient.jdbc.OrientJdbcConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 @RestController
 @RequestMapping("/orientdb")
-public class NameBaseController {
+public class OrientdbNameBasicsController {
 
-    public static final Logger logger = LoggerFactory.getLogger(NameBaseController.class);
+    public static final Logger logger = LoggerFactory.getLogger(OrientdbNameBasicsController.class);
 
     @Autowired
     public Connection connection;
 
-    @GetMapping("/get")
-    public Connection get() throws SQLException, ClassNotFoundException {
-        Class.forName("com.orientechnologies.orient.jdbc.OrientJdbcDriver");
-        Properties info = new Properties();
-        info.put("user", "admin");
-        info.put("password", "admin");
-
-        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:178.128.58.224/orientdb", info);
-        return conn;
-    }
+//    @GetMapping("/get")
+//    public Connection get() throws SQLException, ClassNotFoundException {
+//        Class.forName("com.orientechnologies.orient.jdbc.OrientJdbcDriver");
+//        Properties info = new Properties();
+//        info.put("user", "admin");
+//        info.put("password", "admin");
+//
+//        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:178.128.58.224/orientdb", info);
+//        return conn;
+//    }
 
     @GetMapping("/select")
     OutputList getNameBasics(@RequestParam Long bYear, @RequestParam int limit) throws SQLException {
@@ -83,6 +81,24 @@ public class NameBaseController {
         ResultSet rs = stmt.executeQuery("DELETE FROM NameBasics WHERE nconst = " + "'" + nconst +  "'");
         long end = System.nanoTime();
         return new OutputRow( (double) (end-start)/1000000000, 1, null);
+    }
+
+    @GetMapping("/join")
+    OutputList join(@RequestParam Long vote, @RequestParam Long limit) throws SQLException {
+        Statement statement = connection.createStatement();
+        //Trong file json da tao 1 canh (edge) from titleRatings -> titleBasics voi ten la "HasName"
+        long start = System.nanoTime();
+        ResultSet rs = statement.executeQuery("select out('HasName').tconst, out('HasName').primaryTitle, numVotes From titleratings where numVotes >="+ vote +" limit " + limit);
+        long end = System.nanoTime();
+        List<ResultJoin> list = new ArrayList<>();
+        while (rs.next()){
+            ResultJoin resultJoin= new ResultJoin();
+            resultJoin.setTconst(rs.getString("out"));
+            resultJoin.setPrimatytTitle(rs.getString("out2"));
+            resultJoin.setNumVotes(rs.getLong("numVotes"));
+            list.add(resultJoin);
+        }
+        return new OutputList((double) (end-start)/1000000000, list.size(), list);
     }
 
 }

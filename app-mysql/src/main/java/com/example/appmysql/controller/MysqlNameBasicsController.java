@@ -10,13 +10,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/mysql")
-public class NameBasicsController {
+public class MysqlNameBasicsController {
     @Autowired
     JdbcTemplate jdbc;
 
     @GetMapping("/select")
-    Double getAllByStartYear(@RequestParam Long sYear, @RequestParam int limit){
-        String sql = "SELECT * FROM name_basics WHERE birthYear = " + sYear + " LIMIT " + limit;
+    Double getAllByStartYear(@RequestParam Long bYear, @RequestParam int limit){
+        String sql = "SELECT * FROM name_basics WHERE birthYear = " + bYear + " LIMIT " + limit;
         long start = System.nanoTime();
         jdbc.execute(sql);
         long end = System.nanoTime();
@@ -49,6 +49,16 @@ public class NameBasicsController {
         long start = System.nanoTime();
         String sql = "UPDATE name_basics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;
         jdbc.update(sql);
+        long end = System.nanoTime();
+        return (double) (end-start)/1000000000;
+    }
+
+    //Join title_basic and title_ratings
+    @GetMapping("/join")
+    Double join(@RequestParam Long vote, @RequestParam Long limit){
+        long start= System.nanoTime();
+        String sql = "select title_basics.tconst, title_basics.primaryTitle from title_basics Where tconst in (select tconst from title_ratings Where numVotes >= "+ vote+ ") Limit " + limit;
+        jdbc.execute(sql);
         long end = System.nanoTime();
         return (double) (end-start)/1000000000;
     }
