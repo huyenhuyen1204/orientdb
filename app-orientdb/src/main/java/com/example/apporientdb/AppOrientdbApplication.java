@@ -53,7 +53,7 @@ public class AppOrientdbApplication {
         info.put("spark", "true"); // ENABLE Spark compatibility
 
         Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:localhost:2424/orientdb", info);
-//        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:128.199.205.8/orientdb", info);
+//        Connection conn = (OrientJdbcConAppnection) DriverManager.getConnection("jdbc:orient:remote:128.199.205.8/orientdb", info);
 
         return conn;
     }

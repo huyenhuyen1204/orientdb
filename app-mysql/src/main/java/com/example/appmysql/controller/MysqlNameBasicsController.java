@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+//@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/mysql")
 public class MysqlNameBasicsController {
     @Autowired
     JdbcTemplate jdbc;
 
+    @CrossOrigin
     @GetMapping("/select")
     Double getAllByStartYear(@RequestParam Long bYear, @RequestParam int limit){
         String sql = "SELECT * FROM name_basics WHERE birthYear = " + bYear + " LIMIT " + limit;
@@ -23,8 +25,9 @@ public class MysqlNameBasicsController {
         return (double) (end-start)/1000000000;
     }
 
+//    @CrossOrigin
     @PostMapping("/insert")
-    Double createElement(@RequestBody NameBasicsRequest titlePrincipalsRequest){
+    Double createElement( @Valid @RequestBody NameBasicsRequest titlePrincipalsRequest){
         long start = System.nanoTime();
         jdbc.update("INSERT INTO name_basics(nconst, primaryName, birthYear)  VALUES (?, ?, ?)",
                 titlePrincipalsRequest.getNconst(),
@@ -35,6 +38,7 @@ public class MysqlNameBasicsController {
 
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete")
     Double delete(@RequestParam String nconst){
         long start = System.nanoTime();
@@ -44,8 +48,9 @@ public class MysqlNameBasicsController {
         return (double) (end-start)/1000000000;
     }
 
+    @CrossOrigin
     @PutMapping("/update")
-    Double update(@RequestBody InputUpdate inputUpdate){
+    Double update(@Valid @RequestBody InputUpdate inputUpdate){
         long start = System.nanoTime();
         String sql = "UPDATE name_basics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;
         jdbc.update(sql);
@@ -54,6 +59,7 @@ public class MysqlNameBasicsController {
     }
 
     //Join title_basic and title_ratings
+    @CrossOrigin
     @GetMapping("/join")
     Double join(@RequestParam Long vote, @RequestParam Long limit){
         long start= System.nanoTime();

@@ -14,6 +14,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/orientdb")
 public class OrientdbNameBasicsController {
@@ -34,6 +35,7 @@ public class OrientdbNameBasicsController {
 //        return conn;
 //    }
 
+    @CrossOrigin
     @GetMapping("/select")
     OutputList getNameBasics(@RequestParam Long bYear, @RequestParam int limit) throws SQLException {
         Statement stmt = connection.createStatement();
@@ -56,6 +58,7 @@ public class OrientdbNameBasicsController {
         return new OutputList((double)(end - start)/1000000000, limit, list);
     }
 
+    @CrossOrigin
     @PostMapping("/insert")
     OutputRow createElement(@RequestBody NameBasicsRequest titlePrincipalsRequest) throws SQLException {
         Statement stmt = connection.createStatement();
@@ -74,6 +77,7 @@ public class OrientdbNameBasicsController {
         return new OutputRow((double)(end - start)/1000000000, 1, nameBasics);
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete")
     OutputRow delete(@RequestParam String nconst) throws SQLException {
         Statement stmt = connection.createStatement();
@@ -83,6 +87,7 @@ public class OrientdbNameBasicsController {
         return new OutputRow( (double) (end-start)/1000000000, 1, null);
     }
 
+    @CrossOrigin
     @GetMapping("/join")
     OutputList join(@RequestParam Long vote, @RequestParam Long limit) throws SQLException {
         Statement statement = connection.createStatement();
