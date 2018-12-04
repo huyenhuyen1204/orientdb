@@ -20,16 +20,6 @@ public class OrientdbNameBasicsController {
     @Autowired
     public Connection connection;
 
-//    @GetMapping("/get")
-//    public Connection get() throws SQLException, ClassNotFoundException {
-//        Class.forName("com.orientechnologies.orient.jdbc.OrientJdbcDriver");
-//        Properties info = new Properties();
-//        info.put("user", "admin");
-//        info.put("password", "admin");
-//
-//        Connection conn = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:178.128.58.224/orientdb", info);
-//        return conn;
-//    }
 
     @GetMapping("/select")
     OutputList getNameBasics(@RequestParam Long bYear, @RequestParam int limit) throws SQLException {
@@ -106,6 +96,7 @@ public class OrientdbNameBasicsController {
         String sql = "UPDATE NameBasics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;
         ResultSet rs = statement.executeQuery(sql);
         long end = System.nanoTime();
+
         NameBasics nameBasics= null;
         while(rs.next()) {
             nameBasics = new NameBasics(inputUpdate.getCategory());
