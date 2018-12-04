@@ -46,6 +46,10 @@ public class NameBasics {
     public NameBasics() {
     }
 
+    public NameBasics(String primaryName) {
+        this.primaryName = primaryName;
+    }
+
     public String getNconts() {
         return nconst;
     }
