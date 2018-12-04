@@ -50,6 +50,7 @@ public class NameBasics {
         this.primaryName = primaryName;
     }
 
+
     public String getNconts() {
         return nconst;
     }

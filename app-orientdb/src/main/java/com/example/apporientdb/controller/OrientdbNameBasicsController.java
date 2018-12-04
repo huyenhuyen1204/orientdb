@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,19 +91,26 @@ public class OrientdbNameBasicsController {
 
 
     @PutMapping("/update")
-    OutputRow update(@RequestBody InputUpdate inputUpdate) throws SQLException {
+    OutputRow update(@Valid @RequestBody InputUpdate inputUpdate) throws SQLException {
         Statement statement = connection.createStatement();
         long start = System.nanoTime();
-        String sql = "UPDATE NameBasics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;
-        ResultSet rs = statement.executeQuery(sql);
+        ResultSet rs = statement.executeQuery("UPDATE NameBasics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + " WHERE nconst = " + "'" + inputUpdate.getNconst() + "'");
         long end = System.nanoTime();
+//
+//        String a = rs.getString("primaryProfession");
+//        String b = rs.getString("knownForTitles");
+//        long c = 0;
+//        c = rs.getLong("birthYear");
 
-        NameBasics nameBasics= null;
-        while(rs.next()) {
-            nameBasics = new NameBasics(inputUpdate.getCategory());
-        }
-
-        return new OutputRow( (double) (end-start)/1000000000, 1, nameBasics);
+//        NameBasics nameBasics= null;
+//        while (rs.next()) {
+//            nameBasics = new NameBasics(inputUpdate.getNconst(), inputUpdate.getCategory(),
+//                    rs.getLong("birthYear"),
+//                    a,
+//                    b);
+//
+//        }
+        return new OutputRow( (double) (end-start)/1000000000, 1, null);
     }
 
 }

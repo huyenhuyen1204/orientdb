@@ -4,12 +4,12 @@ public class InputUpdate {
     private String nconst;
     private String category;
 
-    public String getId() {
+    public String getNconst() {
         return nconst;
     }
 
-    public void setId(String id) {
-        this.nconst = id;
+    public void setNconst(String nconst) {
+        this.nconst = nconst;
     }
 
     public String getCategory() {

@@ -47,7 +47,7 @@ public class MysqlNameBasicsController {
     @PutMapping("/update")
     Double update(@RequestBody InputUpdate inputUpdate){
         long start = System.nanoTime();
-        String sql = "UPDATE name_basics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getId() + "'"  ;
+        String sql = "UPDATE name_basics SET primaryName = " +  "'" + inputUpdate.getCategory() + "'" + "WHERE nconst = " + "'" + inputUpdate.getNconst()+ "'"  ;
         jdbc.update(sql);
         long end = System.nanoTime();
         return (double) (end-start)/1000000000;
